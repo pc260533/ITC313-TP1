@@ -26,6 +26,7 @@ Date Date::normalise(Date date) {
         date.setAnnee(date.getAnnee()+1);
         date.setMois(1);
     }
+    return date;
 }
 
 int Date::getJour() const {
@@ -122,8 +123,6 @@ bool Date::estValide() {
 
 int Date::nombreDeJoursAvecCetteDate(Date date) {
     int res = 0;
-    std::cout << this->toString() << std::endl;
-    std::cout << date.toString() << std::endl << std::endl;
     if (this->estAvantDate(date)) {
         if (this->annee < date.annee) {
             for (int i = this->annee; i < date.annee; i++) {
