@@ -70,7 +70,29 @@ int main() {
     */
     
     /* Partie 2 Question 6 */
-    
-
+    std::vector<Chambre> listeChambre;
+    for (int i = 0; i < 10; i++) {
+        if (i < 3) {
+            listeChambre.push_back(Chambre(i, TypeDeChambre::Simple, 100.0));
+        }
+        else if (i < 8) {
+            listeChambre.push_back(Chambre(i, TypeDeChambre::Double, 125.0));
+        }
+        else {
+            listeChambre.push_back(Chambre(i, TypeDeChambre::Suite, 210.0));
+        }
+    }
+    Hotel hotel("HOTEL", "Nom", "Ville", listeChambre);
+    cout << "L'hotel est : " << hotel.toString() << endl;
+    std::vector<Client> listeClient;
+    for (int i = 0; i < 10; i++) {
+        listeClient.push_back(Client("Client" + std::to_string(i), "Client" + std::to_string(i), "Client" + std::to_string(i), 0));
+    }
+    for (int i = 0; i < 10; i++) {
+        std::cout << listeClient.at(i).toString() << std::endl;
+    }
     return 0;
+
+    /* Question 7 */
+    
 }
