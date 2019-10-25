@@ -13,6 +13,21 @@ std::vector<int> Date::getListeJourDesMois() {
     return std::vector<int>({31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31});
 }
 
+Date Date::normalise(Date date) {
+    std::vector<int> listeJourMois({31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31});
+    if (((date.getAnnee() % 4 == 0) && (date.getAnnee() % 100 != 0)) || (date.getAnnee() % 400 == 0)) {
+        listeJourMois.at(1) = 29;
+    }
+    if (date.getJour() > listeJourMois.at(date.getMois() - 1)) {
+        date.setMois(date.getMois()+1);
+        date.setJour(1);
+    }
+    if (date.getMois() > 12) {
+        date.setAnnee(date.getAnnee()+1);
+        date.setMois(1);
+    }
+}
+
 int Date::getJour() const {
     return this->jour;
 }
@@ -22,8 +37,6 @@ void Date::setJour(int jour) {
 }
 
 int Date::getMois() const {
-
-
     return this->mois;
 }
 
@@ -56,6 +69,10 @@ void Date::jourProchain() {
     if (this->jour > listeJourDesMois.at(this->mois - 1)) {
         this->mois++;
         this->jour = 1;
+    }
+    if (this->mois > 12) {
+        this->annee++;
+        this->mois = 1;
     }
 }
 
@@ -92,6 +109,15 @@ bool Date::estApresDate(Date date) {
         res = true;
     }
     return res;
+}
+
+bool Date::estEgale(Date date) {
+    return ((this->getMois() == date.getMois()) && (this->getAnnee() == date.getAnnee()) && (this->getJour() == date.getJour()));
+}
+
+bool Date::estValide() {
+    Date date(this->getJour(), this->getMois(), this->getAnnee());
+    return this->estEgale(this->normalise(date));
 }
 
 int Date::nombreDeJoursAvecCetteDate(Date date) {

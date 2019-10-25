@@ -70,29 +70,59 @@ int main() {
     */
     
     /* Partie 2 Question 6 */
-    std::vector<Chambre> listeChambre;
+    std::vector<Chambre> listeChambres;
     for (int i = 0; i < 10; i++) {
         if (i < 3) {
-            listeChambre.push_back(Chambre(i, TypeDeChambre::Simple, 100.0));
+            listeChambres.push_back(Chambre(i, TypeDeChambre::Simple, 100.0));
         }
         else if (i < 8) {
-            listeChambre.push_back(Chambre(i, TypeDeChambre::Double, 125.0));
+            listeChambres.push_back(Chambre(i, TypeDeChambre::Double, 125.0));
         }
         else {
-            listeChambre.push_back(Chambre(i, TypeDeChambre::Suite, 210.0));
+            listeChambres.push_back(Chambre(i, TypeDeChambre::Suite, 210.0));
         }
     }
-    Hotel hotel("HOTEL", "Nom", "Ville", listeChambre);
+    Hotel hotel("HOTEL", "Nom", "Ville", listeChambres);
     cout << "L'hotel est : " << hotel.toString() << endl;
-    std::vector<Client> listeClient;
+    std::vector<Client> listeClients;
     for (int i = 0; i < 10; i++) {
-        listeClient.push_back(Client("Client" + std::to_string(i), "Client" + std::to_string(i), "Client" + std::to_string(i), 0));
+        listeClients.push_back(Client("Client" + std::to_string(i), "Client" + std::to_string(i), "Client" + std::to_string(i), 0));
     }
     for (int i = 0; i < 10; i++) {
-        std::cout << listeClient.at(i).toString() << std::endl;
+        std::cout << listeClients.at(i).toString() << std::endl;
     }
-    return 0;
 
     /* Question 7 */
-    
+    std::vector<Reservation> listeReservations;
+
+    for(int i = 0; i < 1; i++) {
+        Reservation reservation(i,hotel,hotel.getListeChambresHotel().at(i),listeClients.at(i));
+        bool quit = false;
+        while (!quit) {
+            int jourDebut, jourFin, moisDebut, moisFin, anneeDebut, anneeFin;
+            cout << "Jour de debut : ";
+            cin >> jourDebut;
+            cout << "Mois de debut : ";
+            cin >> moisDebut;
+            cout << "Annee de debut : ";
+            cin >> anneeDebut;
+            cout << "Jour de fin : ";
+            cin >> jourFin;
+            cout << "Mois de fin : ";
+            cin >> moisFin;
+            cout << "Annee de fin : ";
+            cin >> anneeFin;
+            Date dateDebut(jourDebut, moisDebut, anneeDebut);
+            Date dateFin(jourFin, moisFin, anneeFin);
+            if ((dateDebut.estValide()) && (dateFin.estValide()) && (reservation.setPeriodeDeReservation(dateDebut, dateFin))) {
+                quit = true;
+            }
+        }
+        listeReservations.push_back(reservation);
+    }
+
+    cout << listeReservations.at(0).toString() << std::endl;
+
+
+    return 0;
 }

@@ -18,6 +18,7 @@ private:
     std::string getMoisToString();
     bool anneeEstBissextile(int annee);
     std::vector<int> getListeJourDesMois();
+    Date normalise(Date date);
 
 public:
     Date();
@@ -33,8 +34,10 @@ public:
     void anneeProchain();
     bool estAvantDate(Date date);
     bool estApresDate(Date date);
+    bool estValide();
     int nombreDeJoursAvecCetteDate(Date date);
     std::string toString();
+    bool estEgale(Date date);
 
 };
 
