@@ -9,7 +9,7 @@
 using namespace std;
 
 int main() {
-    /* Question 1
+    /* Partie 1 Question 1
     Date date(28, 2, 2019);
     Date dateBissextile(28, 2, 2020);
     cout << "La date est de : " << date.toString() << endl;
@@ -46,7 +46,7 @@ int main() {
     cout << "L'hotel est : " << hotel.toString() << endl;
     */
     
-    /* Question 5 */
+    /* Question 5 
     Date date1(2, 6, 2019);
     Date date2(3, 8, 2021);
     cout << date1.nombreDeJoursAvecCetteDate(date2) << endl;
@@ -67,6 +67,10 @@ int main() {
     Reservation reservation(0, hotel, chambre1, client);
     reservation.setPeriodeDeReservation(date1, date2);;
     cout <<  "La reservation est : " << reservation.toString() << endl;
+    */
+    
+    /* Partie 2 Question 6 */
+    
 
     return 0;
 }
