@@ -32,5 +32,17 @@ int main() {
     Chambre chambre(1,TypeDeChambre::Simple, 10.0);
     cout << "La chambre est : " << chambre.toString() << endl;
     */
+
+    /* Question 4
+    Chambre chambre1(1,TypeDeChambre::Simple, 10.0);
+    cout << "La chambre est : " << chambre1.toString() << endl << endl;
+    Chambre chambre2(2,TypeDeChambre::Double, 20.0);
+    cout << "La chambre est : " << chambre2.toString() << endl << endl;
+    std::vector<Chambre> listeChambre;
+    listeChambre.push_back(chambre1);
+    listeChambre.push_back(chambre2);
+    Hotel hotel("HOTEL", "Nom", "Ville", listeChambre);
+    cout << "L'hotel est : " << hotel.toString() << endl;
+    */
     return 0;
 }
