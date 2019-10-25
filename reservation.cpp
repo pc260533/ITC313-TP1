@@ -1,5 +1,10 @@
 #include "reservation.h"
 
+double Reservation::calculMontantTotal() {
+    this->montantTotal = this->chambreReservation.getPrixParNuit() * this->dateDebutReservation.nombreDeJoursAvecCetteDate(this->dateFinReservation);
+    return this->montantTotal;
+}
+
 Date Reservation::getDateDebutReservation() const {
     return this->dateDebutReservation;
 }
@@ -39,7 +44,7 @@ Reservation::Reservation()
 
 Reservation::Reservation(int identifiantReservation, Hotel hotelReservation, Chambre chambreReservation, Client clientReservation)
     : identifiantReservation(identifiantReservation), dateDebutReservation(Date()), dateFinReservation(Date()), hotelReservation(hotelReservation), chambreReservation(chambreReservation), clientReservation(clientReservation), montantTotal(0.0) {
-
+        this->clientReservation.ajouterReservation();
 }
 
 bool Reservation::setPeriodeDeReservation(Date dateDebut, Date dateFin) {
@@ -49,12 +54,8 @@ bool Reservation::setPeriodeDeReservation(Date dateDebut, Date dateFin) {
         this->dateDebutReservation = dateDebut;
         this->dateFinReservation = dateFin;
     }
+    this->calculMontantTotal();
     return res;
-}
-
-double Reservation::getMontantTotal() {
-    this->montantTotal = this->chambreReservation.getPrixParNuit() * this->dateDebutReservation.nombreDeJoursAvecCetteDate(this->dateFinReservation);
-    return this->montantTotal;
 }
 
 std::string Reservation::toString() {

@@ -65,8 +65,7 @@ int main() {
     Client client("1", "Chassagne", "Pierre-Nicolas", 0);
 
     Reservation reservation(0, hotel, chambre1, client);
-    reservation.setPeriodeDeReservation(date1, date2);
-    reservation.getMontantTotal();
+    reservation.setPeriodeDeReservation(date1, date2);;
     cout <<  "La reservation est : " << reservation.toString() << endl;
 
     return 0;
