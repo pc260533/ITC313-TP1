@@ -44,5 +44,11 @@ int main() {
     Hotel hotel("HOTEL", "Nom", "Ville", listeChambre);
     cout << "L'hotel est : " << hotel.toString() << endl;
     */
+    /* Question 5 */
+    Date date1(2, 6, 2019);
+    Date date2(3, 8, 2021);
+    cout << date1.nombreDeJoursAvecCetteDate(date2) << endl;
+    Chambre chambre1(1,TypeDeChambre::Simple, 10.0);
+    cout << "La chambre est : " << chambre1.toString() << endl << endl;
     return 0;
 }
