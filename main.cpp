@@ -44,6 +44,7 @@ int main() {
     Hotel hotel("HOTEL", "Nom", "Ville", listeChambre);
     cout << "L'hotel est : " << hotel.toString() << endl;
     */
+    
     /* Question 5 */
     Date date1(2, 6, 2019);
     Date date2(3, 8, 2021);
