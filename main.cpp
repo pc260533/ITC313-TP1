@@ -134,7 +134,7 @@ int main() {
         bool quitChambreReservation = false;
         while (!quitChambreReservation) {
             std::cout << "Entrer le type de chambre désirer :" << std::endl;
-            int choixTypeDeChambre;
+            int choixTypeDeChambre = 0;
             std::vector<std::string> listeTypesDeChambre = listeChambres.at(0).getListeTypesDeChambre();
             for (int i = 0; i < listeTypesDeChambre.size(); i++) {
                 std::cout << "Taper " << std::to_string(i) << " pour " << listeTypesDeChambre.at(i) << std::endl;
@@ -151,6 +151,34 @@ int main() {
         }
 
         /* Question 9 */
+        bool quitClientReservation = false;
+        while (!quitClientReservation) {
+            std::string nomClientReservation = "";
+            std::cout << "Entrer le nom du client :" << std::endl;
+            cin >> nomClientReservation;
+            std::vector<Client> listeClientsSelectionnes;
+            int choixClient = 0;
+            Client clientReservation;
+            for (Client client : listeClients) {
+                if (client.getNomClient() == nomClientReservation) {
+                    listeClientsSelectionnes.push_back(client);
+                }
+            }
+            if (listeClientsSelectionnes.size() != 0) {
+                for (int i = 0; i < listeClientsSelectionnes.size(); i++) {
+                    std::cout << "Taper " << std::to_string(i) << " pour le client" << listeClientsSelectionnes.at(i).toString() << std::endl;
+                }
+                cin >> choixClient;
+                clientReservation = listeClientsSelectionnes.at(choixClient);
+                std::cout << "Le client est : " << clientReservation.toString() << std::endl;
+                reservation.setClientReservation(clientReservation);
+                quitClientReservation = true;
+            }
+            else {
+                std::cout << "Aucun client ne possede ce nom." << std::endl;
+            }
+        }
+        /* Question 10 */
         reservation.setHotelReservation(hotel);
         reservation.calculMontantTotal();
         listeReservations.push_back(reservation);
