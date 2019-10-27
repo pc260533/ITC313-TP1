@@ -44,7 +44,8 @@ Reservation::Reservation()
 
 Reservation::Reservation(int identifiantReservation, Hotel hotelReservation, Chambre chambreReservation, Client clientReservation)
     : identifiantReservation(identifiantReservation), dateDebutReservation(Date()), dateFinReservation(Date()), hotelReservation(hotelReservation), chambreReservation(chambreReservation), clientReservation(clientReservation), montantTotal(0.0) {
-        this->clientReservation.ajouterReservation();
+    this->chambreReservation.setEstReserve(true);
+    this->clientReservation.ajouterReservation();
 }
 
 bool Reservation::setPeriodeDeReservation(Date dateDebut, Date dateFin) {

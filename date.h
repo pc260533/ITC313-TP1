@@ -36,8 +36,8 @@ public:
     bool estApresDate(Date date);
     bool estValide();
     int nombreDeJoursAvecCetteDate(Date date);
-    std::string toString();
     bool estEgale(Date date);
+    std::string toString();
 
 };
 

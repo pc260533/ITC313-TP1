@@ -41,6 +41,36 @@ void Hotel::supprimerChambre(Chambre chambre) {
     //this->listeChambresHotel.erase(std::remove(this->listeChambresHotel.begin(), this->listeChambresHotel.end(), chambre), this->listeChambresHotel.end());
 }
 
+bool Hotel::chambreDeCeTypeEstDisponible(TypeDeChambre typeDeChambre) {
+    bool res = false;
+    for (Chambre chambre : this->listeChambresHotel) {
+        if ((!chambre.getEstReserve()) && (chambre.getTypeDeChambre() == typeDeChambre)) {
+            res = true;
+        }
+    }
+    return res;
+}
+
+Chambre Hotel::reservePremiereChambreDeCeType(TypeDeChambre typeDeChambre) {
+    Chambre res;
+    bool quit = false;
+    int i = 0;
+    while (!quit) {
+        if (i > this->listeChambresHotel.size()) {
+            quit = true;
+        }
+        else {
+            if ((!this->listeChambresHotel.at(i).getEstReserve()) && (this->listeChambresHotel.at(i).getTypeDeChambre() == typeDeChambre)) {
+                this->listeChambresHotel.at(i).setEstReserve(true);
+                res = this->listeChambresHotel.at(i);
+                quit = true;
+            }
+        }
+        i++;
+    }
+    return res;
+}
+
 std::string Hotel::toString() {
     std::string res =  "L'id de l'hotel est : " + this->identifiantHotel + ".\n"
             + "Le nom de l'hotel est : " + this->nomHotel + "\n"

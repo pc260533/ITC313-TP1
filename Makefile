@@ -1,6 +1,3 @@
-
-# Makefile with dependencies management (Q4)
-
 CXX        = g++
 CXXFLAGS   = -Wall -Wextra -std=c++11
 DEPFLAGS   = -MMD

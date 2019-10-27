@@ -19,9 +19,6 @@ private:
     Client clientReservation;
     double montantTotal;
 
-private:
-    double calculMontantTotal();
-
 public:
     Reservation();
     Reservation(int identifiantReservation, Hotel hotelReservation, Chambre chambreReservation, Client clientReservation);
@@ -33,6 +30,7 @@ public:
     void setChambreReservation(Chambre chambreReservation);
     Client getClientReservation() const;
     void setClientReservation(Client clientReservation);
+    double calculMontantTotal();
     bool setPeriodeDeReservation(Date dateDebut, Date dateFin);
     std::string toString();
 

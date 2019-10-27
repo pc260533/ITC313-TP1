@@ -27,6 +27,8 @@ public:
     void setListeChambresHotel(std::vector<Chambre> listeChambresHotel);
     void ajouterChambre(Chambre chambre);
     void supprimerChambre(Chambre chambre);
+    bool chambreDeCeTypeEstDisponible(TypeDeChambre typeDeChambre);
+    Chambre reservePremiereChambreDeCeType(TypeDeChambre typeDeChambre);
     std::string toString();
 };
 

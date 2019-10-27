@@ -131,7 +131,7 @@ int Date::nombreDeJoursAvecCetteDate(Date date) {
                     res++;
                 }
             }
-            std::cout << "annee" << std::to_string(res) << std::endl;
+            //std::cout << "annee" << std::to_string(res) << std::endl;
             return res += this->nombreDeJoursAvecCetteDate(Date(date.jour, date.mois, this->annee));
         }
         if (this->mois < date.mois) {
@@ -141,7 +141,7 @@ int Date::nombreDeJoursAvecCetteDate(Date date) {
                     res++;
                 }
             }
-            std::cout << "mois inf" << std::to_string(res) << std::endl;
+            //std::cout << "mois inf" << std::to_string(res) << std::endl;
             return res += this->nombreDeJoursAvecCetteDate(Date(date.jour, this->mois, this->annee));
         }
         else if (this->mois > date.mois) {
@@ -151,17 +151,17 @@ int Date::nombreDeJoursAvecCetteDate(Date date) {
                     res--;
                 }
             }
-            std::cout << "mois sup" << std::to_string(res) << std::endl;
+            //std::cout << "mois sup" << std::to_string(res) << std::endl;
             return res += this->nombreDeJoursAvecCetteDate(Date(date.jour, this->mois, this->annee));
         }
         if (this->jour < date.jour) {
             res += date.jour - this->jour;
-            std::cout << "jour inf" << std::to_string(res) << std::endl;
+            //std::cout << "jour inf" << std::to_string(res) << std::endl;
             return res += this->nombreDeJoursAvecCetteDate(Date(this->jour, this->mois, this->annee));
         }
         else if (this->jour > date.jour) {
             res -= this->jour - date.jour;
-            std::cout << "jour supp" << std::to_string(res) << std::endl;
+            //std::cout << "jour supp" << std::to_string(res) << std::endl;
             return res += this->nombreDeJoursAvecCetteDate(Date(this->jour, this->mois, this->annee));
         }
     }
