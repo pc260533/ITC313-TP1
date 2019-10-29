@@ -4,6 +4,9 @@
 #include "client.h"
 #include "date.h"
 #include "hotel.h"
+#include "listedechambres.h"
+#include "listedeclients.h"
+#include "listedereservations.h"
 #include "reservation.h"
 
 using namespace std;
@@ -70,123 +73,138 @@ int main() {
     */
 
     /* Partie 2 Question 6 */
-    std::vector<Chambre> listeChambres;
+    ListeDeChambres listeDeChambres;
     for (int i = 0; i < 10; i++) {
         if (i < 3) {
-            listeChambres.push_back(Chambre(i, TypeDeChambre::Simple, 100.0));
+            listeDeChambres.ajouterChambre(Chambre(i, TypeDeChambre::Simple, 100.0));
         }
         else if (i < 8) {
-            listeChambres.push_back(Chambre(i, TypeDeChambre::Double, 125.0));
+            listeDeChambres.ajouterChambre(Chambre(i, TypeDeChambre::Double, 125.0));
         }
         else {
-            listeChambres.push_back(Chambre(i, TypeDeChambre::Suite, 210.0));
+            listeDeChambres.ajouterChambre(Chambre(i, TypeDeChambre::Suite, 210.0));
         }
     }
-    Hotel hotel("HOTEL", "Nom", "Ville", listeChambres);
+    Hotel hotel("HOTEL", "Nom", "Ville", listeDeChambres);
     std::cout << "L'hotel est : " << hotel.toString() << endl;
 
-    std::vector<Client> listeClients;
+    ListeDeClients listeDeClients;
     for (int i = 0; i < 10; i++) {
-        listeClients.push_back(Client("Client" + std::to_string(i), "Client" + std::to_string(i), "Client" + std::to_string(i), 0));
+        listeDeClients.ajouterClient(Client("Client" + std::to_string(i), "Client" + std::to_string(i), "Client" + std::to_string(i), 0));
     }
-    for (Client client : listeClients) {
-        std::cout << "Le client est : " << client.toString() << std::endl;
-    }
-    std::cout << std::endl;
+    std::cout << "La liste de clients est : " << listeDeClients.toString() << std::endl;
 
-    std::vector<Reservation> listeReservations;
-    for(int i = 0; i < 1; i++) {
-        Reservation reservation;
-
-        /* Question 7 */
-        bool quitDatesReservation = false;
-        while (!quitDatesReservation) {
-            int jourDebut;
-            int jourFin;
-            int moisDebut;
-            int moisFin;
-            int anneeDebut;
-            int anneeFin;
-            std::cout << "Entrer la date de debut et la date de fin de la reservation :" << std::endl;
-            std::cout << "Jour de debut : ";
-            cin >> jourDebut;
-            std::cout << "Mois de debut : ";
-            cin >> moisDebut;
-            std::cout << "Annee de debut : ";
-            cin >> anneeDebut;
-            std::cout << "Jour de fin : ";
-            cin >> jourFin;
-            std::cout << "Mois de fin : ";
-            cin >> moisFin;
-            std::cout << "Annee de fin : ";
-            cin >> anneeFin;
-            Date dateDebut(jourDebut, moisDebut, anneeDebut);
-            Date dateFin(jourFin, moisFin, anneeFin);
-            if ((dateDebut.estValide()) && (dateFin.estValide()) && (reservation.setPeriodeDeReservation(dateDebut, dateFin))) {
-                quitDatesReservation = true;
-            }
-            else {
-                std::cout << "Erreur de saisie : Veuillez resaisir les dates." << std::endl;
-            }
+    /* Question 11 */
+    int compteurReservation = 0;
+    ListeDeReservations listeDeReservations(hotel);
+    while (true) {
+        int choixMenu = 0;
+        std::cout << "Taper 0 pour afficher toutes les reservations." << std::endl;
+        std::cout << "Taper 1 pour afficher une reservations avec l'identifiant de reservation." << std::endl;
+        std::cout << "Taper 2 pour afficher toutes les reservations du nom de client." << std::endl;
+        std::cout << "Taper 3 pour ajouter une reservations." << std::endl;
+        std::cout << "Taper 4 pour supprimer une reservations." << std::endl;
+        std::cin >> choixMenu;
+        if (choixMenu == 0) {
+            std::cout << "La liste de reservations est : " << listeDeReservations.toString() << std::endl;
         }
-
-        /* Question 8 */
-        bool quitChambreReservation = false;
-        while (!quitChambreReservation) {
-            std::cout << "Entrer le type de chambre désirer :" << std::endl;
-            int choixTypeDeChambre = 0;
-            std::vector<std::string> listeTypesDeChambre = listeChambres.at(0).getListeTypesDeChambre();
-            for (int i = 0; i < listeTypesDeChambre.size(); i++) {
-                std::cout << "Taper " << std::to_string(i) << " pour " << listeTypesDeChambre.at(i) << std::endl;
-            }
-            cin >> choixTypeDeChambre;
-            TypeDeChambre typeDeChambreChoisi = listeChambres.at(0).getTypeDeChambreAvecString(listeTypesDeChambre.at(choixTypeDeChambre));
-            if (hotel.chambreDeCeTypeEstDisponible(typeDeChambreChoisi)) {
-                quitChambreReservation = true;
-                reservation.setChambreReservation(hotel.reservePremiereChambreDeCeType(typeDeChambreChoisi));
-            }
-            else {
-                std::cout << "Ce type de chambre n'est pas disponible." << std::endl;
-            }
+        else if (choixMenu == 1) {
+            int identifiantDeReservation = 0;
+            std::cout << "Taper l'identifiant de reseravtion." << std::endl;
+            std::cin >> identifiantDeReservation;
+            std::cout << "La reservations est : " << listeDeReservations.getReservationAvecIdentifiantDeReservation(identifiantDeReservation).toString() << std::endl;
         }
+        else if (choixMenu == 2) {
+            std::string identifiantDeClient = "";
+            std::cout << "Taper l'identifiant du client." << std::endl;
+            std::cin >> identifiantDeClient;
+            std::cout << "La liste de reservations est : " << listeDeReservations.getToutesReservationUnClient(listeDeClients.getClientAvecIdentifiantDeClient(identifiantDeClient)).toString() << std::endl;
+        }
+        else if (choixMenu == 3) {
+            Reservation reservation(compteurReservation);
+            compteurReservation++;
 
-        /* Question 9 */
-        bool quitClientReservation = false;
-        while (!quitClientReservation) {
-            std::string nomClientReservation = "";
-            std::cout << "Entrer le nom du client :" << std::endl;
-            cin >> nomClientReservation;
-            std::vector<Client> listeClientsSelectionnes;
-            int choixClient = 0;
-            Client clientReservation;
-            for (Client client : listeClients) {
-                if (client.getNomClient() == nomClientReservation) {
-                    listeClientsSelectionnes.push_back(client);
+            bool quitDatesReservation = false;
+            while (!quitDatesReservation) {
+                int jourDebut;
+                int jourFin;
+                int moisDebut;
+                int moisFin;
+                int anneeDebut;
+                int anneeFin;
+                std::cout << "Entrer la date de debut et la date de fin de la reservation :" << std::endl;
+                std::cout << "Jour de debut : ";
+                cin >> jourDebut;
+                std::cout << "Mois de debut : ";
+                cin >> moisDebut;
+                std::cout << "Annee de debut : ";
+                cin >> anneeDebut;
+                std::cout << "Jour de fin : ";
+                cin >> jourFin;
+                std::cout << "Mois de fin : ";
+                cin >> moisFin;
+                std::cout << "Annee de fin : ";
+                cin >> anneeFin;
+                Date dateDebut(jourDebut, moisDebut, anneeDebut);
+                Date dateFin(jourFin, moisFin, anneeFin);
+                if ((dateDebut.estValide()) && (dateFin.estValide()) && (reservation.setPeriodeDeReservation(dateDebut, dateFin))) {
+                    quitDatesReservation = true;
+                }
+                else {
+                    std::cout << "Erreur de saisie : Veuillez resaisir les dates." << std::endl;
                 }
             }
-            if (listeClientsSelectionnes.size() != 0) {
-                for (int i = 0; i < listeClientsSelectionnes.size(); i++) {
-                    std::cout << "Taper " << std::to_string(i) << " pour le client" << listeClientsSelectionnes.at(i).toString() << std::endl;
-                }
-                cin >> choixClient;
-                clientReservation = listeClientsSelectionnes.at(choixClient);
-                std::cout << "Le client est : " << clientReservation.toString() << std::endl;
-                reservation.setClientReservation(clientReservation);
-                quitClientReservation = true;
-            }
-            else {
-                std::cout << "Aucun client ne possede ce nom." << std::endl;
-            }
-        }
-        /* Question 10 */
-        reservation.setHotelReservation(hotel);
-        reservation.calculMontantTotal();
-        listeReservations.push_back(reservation);
-    }
 
-    /* Question 10 */
-    for (Reservation reservation : listeReservations) {
-        std::cout << "La reservation est : " << listeReservations.at(0).toString() << std::endl;
+            bool quitChambreReservation = false;
+            while (!quitChambreReservation) {
+                std::cout << "Entrer le type de chambre desirer :" << std::endl;
+                int choixTypeDeChambre = 0;
+                std::vector<std::string> listeTypesDeChambre = listeDeChambres.getListeTypesDeChambre();
+                for (int i = 0; i < listeTypesDeChambre.size(); i++) {
+                    std::cout << "Taper " << std::to_string(i) << " pour " << listeTypesDeChambre.at(i) << std::endl;
+                }
+                cin >> choixTypeDeChambre;
+                TypeDeChambre typeDeChambreChoisi = listeDeChambres.getTypeDeChambreAvecString(listeTypesDeChambre.at(choixTypeDeChambre));
+                if (listeDeReservations.chambreDeCeTypeEstDisponibleDansHotel(typeDeChambreChoisi, reservation.getDateDebutReservation(), reservation.getDateFinReservation())) {
+                    quitChambreReservation = true;
+                    reservation.setChambreReservation(listeDeReservations.reservePremiereChambreDeCeTypeDansHotel(typeDeChambreChoisi, reservation.getDateDebutReservation(), reservation.getDateFinReservation()));
+                }
+                else {
+                    std::cout << "Ce type de chambre n'est pas disponible." << std::endl;
+                }
+            }
+
+            bool quitClientReservation = false;
+            while (!quitClientReservation) {
+                std::string nomClientReservation = "";
+                int choixClient = 0;
+                Client clientReservation;
+                std::cout << "Entrer le nom du client :" << std::endl;
+                cin >> nomClientReservation;
+                std::vector<Client> listeClientsSelectionnes = listeDeClients.getTousLesClientsAvecNomDeClient(nomClientReservation);
+                if (listeClientsSelectionnes.size() != 0) {
+                    for (int i = 0; i < listeClientsSelectionnes.size(); i++) {
+                        std::cout << "Taper " << std::to_string(i) << " pour le client" << listeClientsSelectionnes.at(i).toString() << std::endl;
+                    }
+                    cin >> choixClient;
+                    clientReservation = listeClientsSelectionnes.at(choixClient);
+                    std::cout << "Le client est : " << clientReservation.toString() << std::endl;
+                    reservation.setClientReservation(clientReservation);
+                    quitClientReservation = true;
+                }
+                else {
+                    std::cout << "Aucun client ne possede ce nom." << std::endl;
+                }
+            }
+            reservation.calculMontantTotal();
+            listeDeReservations.ajouterReservation(reservation);
+        }
+        else if (choixMenu == 4) {
+            int identifiantDeReservation = 0;
+            std::cout << "Taper l'identifiant de reservation a supprimer." << std::endl;
+            std::cin >> identifiantDeReservation;
+            listeDeReservations.supprimerReservation(listeDeReservations.getReservationAvecIdentifiantDeReservation(identifiantDeReservation));
+        }
     }
     return 0;
 }

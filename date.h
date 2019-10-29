@@ -23,6 +23,8 @@ private:
 public:
     Date();
     Date(int jour, int mois, int annee);
+    bool operator == (const Date& date) const { return ((this->jour == date.jour) && (this->mois == date.mois) && (this->annee == date.annee)); }
+    bool operator != (const Date& date) const { return !operator == (date); }
     int getJour() const;
     void setJour(int jour);
     int getMois() const;
@@ -36,6 +38,7 @@ public:
     bool estApresDate(Date date);
     bool estValide();
     int nombreDeJoursAvecCetteDate(Date date);
+    bool dateEstComprisEntreDeuxDates(Date dateDebut, Date dateFin, Date date);
     bool estEgale(Date date);
     std::string toString();
 

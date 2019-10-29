@@ -16,68 +16,35 @@ void Hotel::setVilleHotel(std::string villeHotel) {
     this->villeHotel = villeHotel;
 }
 
-std::vector<Chambre> Hotel::getListeChambresHotel() const {
-    return this->listeChambresHotel;
+ListeDeChambres Hotel::getListeDeChambresHotel() const {
+    return this->listeDeChambresHotel;
 }
 
-void Hotel::setListeChambresHotel(std::vector<Chambre> listeChambresHotel) {
-    this->listeChambresHotel = listeChambresHotel;
+void Hotel::setListeDeChambresHotel(ListeDeChambres listeDeChambresHotel) {
+    this->listeDeChambresHotel = listeDeChambresHotel;
 }
 
-Hotel::Hotel() : identifiantHotel(""), nomHotel(""), villeHotel(""), listeChambresHotel(std::vector<Chambre>()) {
+Hotel::Hotel() : identifiantHotel(""), nomHotel(""), villeHotel(""), listeDeChambresHotel(ListeDeChambres()) {
 
 }
 
-Hotel::Hotel(std::string identifiantHotel, std::string nomHotel, std::string villeHotel, std::vector<Chambre> listeChambresHotel)
-    : identifiantHotel(identifiantHotel), nomHotel(nomHotel), villeHotel(villeHotel), listeChambresHotel(listeChambresHotel) {
+Hotel::Hotel(std::string identifiantHotel, std::string nomHotel, std::string villeHotel, ListeDeChambres listeDeChambresHotel)
+    : identifiantHotel(identifiantHotel), nomHotel(nomHotel), villeHotel(villeHotel), listeDeChambresHotel(listeDeChambresHotel) {
 
 }
 
 void Hotel::ajouterChambre(Chambre chambre) {
-    this->listeChambresHotel.push_back(chambre);
+    this->listeDeChambresHotel.ajouterChambre(chambre);
 }
 
 void Hotel::supprimerChambre(Chambre chambre) {
-    //this->listeChambresHotel.erase(std::remove(this->listeChambresHotel.begin(), this->listeChambresHotel.end(), chambre), this->listeChambresHotel.end());
-}
-
-bool Hotel::chambreDeCeTypeEstDisponible(TypeDeChambre typeDeChambre) {
-    bool res = false;
-    for (Chambre chambre : this->listeChambresHotel) {
-        if ((!chambre.getEstReserve()) && (chambre.getTypeDeChambre() == typeDeChambre)) {
-            res = true;
-        }
-    }
-    return res;
-}
-
-Chambre Hotel::reservePremiereChambreDeCeType(TypeDeChambre typeDeChambre) {
-    Chambre res;
-    bool quit = false;
-    int i = 0;
-    while (!quit) {
-        if (i > this->listeChambresHotel.size()) {
-            quit = true;
-        }
-        else {
-            if ((!this->listeChambresHotel.at(i).getEstReserve()) && (this->listeChambresHotel.at(i).getTypeDeChambre() == typeDeChambre)) {
-                this->listeChambresHotel.at(i).setEstReserve(true);
-                res = this->listeChambresHotel.at(i);
-                quit = true;
-            }
-        }
-        i++;
-    }
-    return res;
+    this->listeDeChambresHotel.supprimerChambre(chambre);
 }
 
 std::string Hotel::toString() {
-    std::string res =  "L'id de l'hotel est : " + this->identifiantHotel + ".\n"
-            + "Le nom de l'hotel est : " + this->nomHotel + "\n"
-            + "La ville de l'hotel est : " + this->villeHotel + "\n"
-            + "La liste des chambres :\n";
-    for (Chambre chambre : this->listeChambresHotel) {
-        res += chambre.toString() + "\n";
-    }
+    std::string res =  "L'id de l'hotel est : " + this->identifiantHotel + ".\n" +
+            "Le nom de l'hotel est : " + this->nomHotel + "\n" +
+            "La ville de l'hotel est : " + this->villeHotel + "\n" +
+            "La liste de chambres : " + this->listeDeChambresHotel.toString();
     return res;
 }

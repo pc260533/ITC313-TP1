@@ -2,7 +2,7 @@ CXX        = g++
 CXXFLAGS   = -Wall -Wextra -std=c++11
 DEPFLAGS   = -MMD
 LDFLAGS    = 
-SRCS       = main.cpp date.cpp client.cpp chambre.cpp hotel.cpp reservation.cpp
+SRCS       = main.cpp date.cpp client.cpp chambre.cpp hotel.cpp reservation.cpp listedechambres.cpp listedeclients.cpp listedereservation.cpp
 OBJS       = $(SRCS:.cpp=.o)
 TARGET     = TP01 
 DEPS	   = $(OBJS:.o=.d)

@@ -2,10 +2,10 @@
 #define HOTEL_H
 
 #include "chambre.h"
+#include "listedechambres.h"
 
 #include <string>
-#include <vector>
-#include <algorithm>
+
 
 
 class Hotel {
@@ -14,21 +14,19 @@ private:
     std::string identifiantHotel;
     std::string nomHotel;
     std::string villeHotel;
-    std::vector<Chambre> listeChambresHotel;
+    ListeDeChambres listeDeChambresHotel;
 
 public:
     Hotel();
-    Hotel(std::string identifiantHotel, std::string nomHotel, std::string villeHotel, std::vector<Chambre> listeChambresHotel);
+    Hotel(std::string identifiantHotel, std::string nomHotel, std::string villeHotel, ListeDeChambres listeDeChambresHotel);
     std::string getNomHotel() const;
     void setNomHotel(const std::string villeHotel);
     std::string getVilleHotel() const;
     void setVilleHotel(const std::string villeHotel);
-    std::vector<Chambre> getListeChambresHotel() const;
-    void setListeChambresHotel(std::vector<Chambre> listeChambresHotel);
+    ListeDeChambres getListeDeChambresHotel() const;
+    void setListeDeChambresHotel(ListeDeChambres listeChambresHotel);
     void ajouterChambre(Chambre chambre);
     void supprimerChambre(Chambre chambre);
-    bool chambreDeCeTypeEstDisponible(TypeDeChambre typeDeChambre);
-    Chambre reservePremiereChambreDeCeType(TypeDeChambre typeDeChambre);
     std::string toString();
 };
 

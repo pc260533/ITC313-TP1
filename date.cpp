@@ -168,6 +168,16 @@ int Date::nombreDeJoursAvecCetteDate(Date date) {
     return res;
 }
 
+bool Date::dateEstComprisEntreDeuxDates(Date dateDebut, Date dateFin, Date date) {
+    bool res = false;
+    if (date.estApresDate(dateDebut)) {
+        if (dateDebut.nombreDeJoursAvecCetteDate(date) < dateDebut.nombreDeJoursAvecCetteDate(dateFin)) {
+            res = true;
+        }
+    }
+    return res;
+}
+
 std::string Date::toString() {
     return std::to_string(this->jour) + " " + this->getMoisToString() + " " + std::to_string(this->annee);
 }

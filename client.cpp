@@ -1,5 +1,9 @@
 #include "client.h"
 
+std::string Client::getIdentifiantClient() const {
+    return this->identifiantClient;
+}
+
 std::string Client::getNomClient() const {
     return this->nomClient;
 }
