@@ -46,6 +46,16 @@ void ListeDeReservations::supprimerReservation(Reservation reservation) {
     this->listeReservations.erase(std::remove(this->listeReservations.begin(), this->listeReservations.end(), reservation));
 }
 
+bool ListeDeReservations::reservationExiste(int identifiantDeReservation) {
+    bool res = false;
+    for (Reservation reservation : this->listeReservations) {
+        if (reservation.getIdentifiantReservatin() == identifiantDeReservation) {
+            res = true;
+        }
+    }
+    return res;
+}
+
 Reservation ListeDeReservations::getReservationAvecIdentifiantDeReservation(int identifiantDeReservation) {
     Reservation res;
     for (Reservation reservation : this->listeReservations) {

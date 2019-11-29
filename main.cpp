@@ -110,9 +110,11 @@ int main() {
         }
         else if (choixMenu == 1) {
             int identifiantDeReservation = 0;
-            std::cout << "Taper l'identifiant de reseravtion." << std::endl;
+            std::cout << "Taper l'identifiant de reservation." << std::endl;
             std::cin >> identifiantDeReservation;
-            std::cout << "La reservations est : " << listeDeReservations.getReservationAvecIdentifiantDeReservation(identifiantDeReservation).toString() << std::endl;
+            if (listeDeReservations.reservationExiste(identifiantDeReservation)) {
+                std::cout << "La reservations est : " << listeDeReservations.getReservationAvecIdentifiantDeReservation(identifiantDeReservation).toString() << std::endl;
+            }
         }
         else if (choixMenu == 2) {
             std::string identifiantDeClient = "";
@@ -147,6 +149,9 @@ int main() {
                 cin >> anneeFin;
                 Date dateDebut(jourDebut, moisDebut, anneeDebut);
                 Date dateFin(jourFin, moisFin, anneeFin);
+                std::cout << dateFin.estValide() << std::endl;
+                std::cout << dateFin.estValide() << std::endl;
+                std::cout << reservation.setPeriodeDeReservation(dateDebut, dateFin) << std::endl;
                 if ((dateDebut.estValide()) && (dateFin.estValide()) && (reservation.setPeriodeDeReservation(dateDebut, dateFin))) {
                     quitDatesReservation = true;
                 }

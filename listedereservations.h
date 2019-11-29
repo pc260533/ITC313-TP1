@@ -27,6 +27,7 @@ public:
     void ajouterReservation(Reservation reservation);
     void supprimerReservation(Reservation reservation);
     Reservation getReservationAvecIdentifiantDeReservation(int identifiantDeReservation);
+    bool reservationExiste(int identifiantDeReservation);
     ListeDeReservations getToutesReservationUnClient(Client client);
     bool chambreDeCeTypeEstDisponibleDansHotel(TypeDeChambre typeDeChambre, Date dateDebut, Date dateFin);
     Chambre reservePremiereChambreDeCeTypeDansHotel(TypeDeChambre typeDeChambre, Date dateDebut, Date dateFin);
