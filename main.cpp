@@ -103,6 +103,7 @@ int main() {
         std::cout << "Taper 1 pour afficher une reservations avec l'identifiant de reservation." << std::endl;
         std::cout << "Taper 2 pour afficher toutes les reservations du nom de client." << std::endl;
         std::cout << "Taper 3 pour ajouter une reservations." << std::endl;
+        std::cout << "Taper 4 pour modifier une reservations." << std::endl;
         std::cout << "Taper 4 pour supprimer une reservations." << std::endl;
         std::cin >> choixMenu;
         if (choixMenu == 0) {
@@ -206,9 +207,19 @@ int main() {
         }
         else if (choixMenu == 4) {
             int identifiantDeReservation = 0;
+            std::cout << "Taper l'identifiant de reservation a modifier." << std::endl;
+            std::cin >> identifiantDeReservation;
+            if (listeDeReservations.reservationExiste(identifiantDeReservation)) {
+                //TODO : modification
+            }
+        }
+        else if(choixMenu == 5) {
+            int identifiantDeReservation = 0;
             std::cout << "Taper l'identifiant de reservation a supprimer." << std::endl;
             std::cin >> identifiantDeReservation;
-            listeDeReservations.supprimerReservation(listeDeReservations.getReservationAvecIdentifiantDeReservation(identifiantDeReservation));
+            if (listeDeReservations.reservationExiste(identifiantDeReservation)) {
+                listeDeReservations.supprimerReservation(listeDeReservations.getReservationAvecIdentifiantDeReservation(identifiantDeReservation));
+            }
         }
     }
     return 0;
