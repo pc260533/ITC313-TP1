@@ -1,4 +1,5 @@
 #include "listedereservations.h"
+#include "iostream"
 
 bool ListeDeReservations::chambreEstReservePendantUnePeriode(Chambre chambre, Date dateDebut, Date dateFin) {
     bool res = false;
@@ -12,6 +13,20 @@ bool ListeDeReservations::chambreEstReservePendantUnePeriode(Chambre chambre, Da
         }
     }
     return res;
+}
+
+Client ListeDeReservations::ClientDeLaChambreQuiEstReservePendantUnePeriode(Chambre chambre, Date dateDebut, Date dateFin) {
+    Client client;
+    for (Reservation &reservation : this->listeReservations) {
+        if ((reservation.getChambreReservation() == chambre) &&
+                ((dateDebut.dateEstComprisEntreDeuxDates(reservation.getDateDebutReservation(), reservation.getDateFinReservation(), dateDebut)) ||
+                (dateDebut.dateEstComprisEntreDeuxDates(reservation.getDateDebutReservation(), reservation.getDateFinReservation(), dateDebut)) ||
+                (dateDebut.estEgale(reservation.getDateDebutReservation())) ||
+                (dateFin.estEgale(reservation.getDateFinReservation()))))  {
+            client = reservation.getClientReservation();
+        }
+    }
+    return client;
 }
 
 Hotel ListeDeReservations::getHotelListeDeReservation() const {
@@ -46,6 +61,12 @@ void ListeDeReservations::supprimerReservation(Reservation reservation) {
     this->listeReservations.erase(std::remove(this->listeReservations.begin(), this->listeReservations.end(), reservation));
 }
 
+void ListeDeReservations::modifierDateDeDebutReservation(Reservation *reservation, Date dateDebut) {
+    if ((dateDebut.estValide()) && (dateDebut.estAvantDate(reservation->getDateFinReservation())) && (this->chambreEstDisponible(*reservation, dateDebut, reservation->getDateFinReservation()))) {
+        reservation->setPeriodeDeReservation(dateDebut, reservation->getDateFinReservation());
+    }
+}
+
 bool ListeDeReservations::reservationExiste(int identifiantDeReservation) {
     bool res = false;
     for (Reservation reservation : this->listeReservations) {
@@ -66,6 +87,16 @@ Reservation ListeDeReservations::getReservationAvecIdentifiantDeReservation(int 
     return res;
 }
 
+Reservation* ListeDeReservations::getReservationModifiableAvecIdentifiantDeReservation(int identifiantDeReservation) {
+    Reservation* res = nullptr;
+    for (Reservation &reservation : this->listeReservations) {
+        if (reservation.getIdentifiantReservatin() == identifiantDeReservation) {
+            res = &reservation;
+        }
+    }
+    return res;
+}
+
 ListeDeReservations ListeDeReservations::getToutesReservationUnClient(Client client) {
     ListeDeReservations listeDeReservation;
     for (Reservation reservation : this->listeReservations) {
@@ -75,6 +106,18 @@ ListeDeReservations ListeDeReservations::getToutesReservationUnClient(Client cli
     }
     return listeDeReservation;
 }
+
+bool ListeDeReservations::chambreEstDisponible(Reservation reservation, Date dateDebut, Date dateFin) {
+    bool res = true;
+    if (this->chambreEstReservePendantUnePeriode(reservation.getChambreReservation(), dateDebut, dateFin)) {
+        Client client = this->ClientDeLaChambreQuiEstReservePendantUnePeriode(reservation.getChambreReservation(), dateDebut, dateFin);
+        if (reservation.getClientReservation() != client) {
+            res = false;
+        }
+    }
+    return res;
+}
+
 
 bool ListeDeReservations::chambreDeCeTypeEstDisponibleDansHotel(TypeDeChambre typeDeChambre, Date dateDebut, Date dateFin) {
     std::vector<Chambre> listeDesChambresDeCeType = this->hotelListeDeReservation.getListeDeChambresHotel().getToutesChambresDeCeType(typeDeChambre);

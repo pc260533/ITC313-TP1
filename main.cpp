@@ -104,7 +104,7 @@ int main() {
         std::cout << "Taper 2 pour afficher toutes les reservations du nom de client." << std::endl;
         std::cout << "Taper 3 pour ajouter une reservations." << std::endl;
         std::cout << "Taper 4 pour modifier une reservations." << std::endl;
-        std::cout << "Taper 4 pour supprimer une reservations." << std::endl;
+        std::cout << "Taper 5 pour supprimer une reservations." << std::endl;
         std::cin >> choixMenu;
         if (choixMenu == 0) {
             std::cout << "La liste de reservations est : " << listeDeReservations.toString() << std::endl;
@@ -206,11 +206,28 @@ int main() {
             listeDeReservations.ajouterReservation(reservation);
         }
         else if (choixMenu == 4) {
+            int choixModification = 0;
             int identifiantDeReservation = 0;
             std::cout << "Taper l'identifiant de reservation a modifier." << std::endl;
             std::cin >> identifiantDeReservation;
             if (listeDeReservations.reservationExiste(identifiantDeReservation)) {
-                //TODO : modification
+                std::cout << "Taper 0 pour modifier la date de début" << std::endl;
+                cin >> choixModification;
+                if (choixModification == 0) {
+                    int jourDebut;
+                    int moisDebut;
+                    int anneeDebut;
+                    std::cout << "Entrer la date de debut de la reservation :" << std::endl;
+                    std::cout << "Jour de debut : ";
+                    cin >> jourDebut;
+                    std::cout << "Mois de debut : ";
+                    cin >> moisDebut;
+                    std::cout << "Annee de debut : ";
+                    cin >> anneeDebut;
+                    Date dateDebut(jourDebut, moisDebut, anneeDebut);
+                    std::cout << "la nouvelle reservation : " << listeDeReservations.getReservationModifiableAvecIdentifiantDeReservation(identifiantDeReservation)->toString() << std::endl;
+                    listeDeReservations.modifierDateDeDebutReservation(listeDeReservations.getReservationModifiableAvecIdentifiantDeReservation(identifiantDeReservation), dateDebut);
+                }
             }
         }
         else if(choixMenu == 5) {
