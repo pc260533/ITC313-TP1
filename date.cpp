@@ -98,6 +98,9 @@ bool Date::estAvantDate(Date date) {
     if ((this->mois == date.mois) && (this->jour < date.jour)) {
         res = true;
     }
+    if ((this->mois == date.mois) && (this->jour == date.jour) && (this->annee < date.annee)) {
+        res = true;
+    }
     return res;
 }
 
